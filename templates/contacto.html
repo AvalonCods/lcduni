@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %} LCDUNI: Contacto {% endblock titulo %}
+
+{% block cabecera %}<img src='{% static "img/mb.png" %}' alt='Pongase en contacto con nosotros...' class='icono'> {% endblock cabecera %}
+
+{% block contenido %}  
+ 
+    <li class="producto">
+        <div class="descripcion">
+            <p><strong>Pongase en contacto con nosotros...</strong></p>
+            <form method='post' action=""> {% csrf_token %}
+            {% for campo in formulario %}
+            <p>{{campo.label_tag}}</p>
+            <p>{{campo}}</p>
+            {% endfor %}
+            <p><input type= 'submit' value= 'Enviar' id=''></p>
+            </form>
+        </div>
+        <div class="mapa">
+            <p><strong>Casa Central:</p></strong>
+            <br>Dirección: Rondeau 1512
+            <br>Teléfono: 2902 9381
+            <br>Horarios: 
+                <br>lun. a vie.: 9:30 a 18.30
+                <br>sáb.: 9.00 a 13.00
+
+            <p><strong>Sucursal Manga:</p></strong>
+            <br>Dirección: Linneo 1512
+            <br>Teléfono: 2227 4192
+            <br>Horarios: 
+                <br>lun. a vie.: 9:30 a 18.30
+                <br>sáb.: 9.00 a 13.00
+            <p><img src='{% static "img/mapa.png" %}' alt='' class='mapa'></p>
+        </div>
+    </li>
+{% endblock contenido %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %} LCDUNI: Registrarse {% endblock titulo %}
+
+{% block cabecera %}<img src='{% static "img/mb.png" %}' alt='ingresar usuario' class='icono'>{% endblock cabecera %}
+
+{% block contenido %} 
+
+<div style="text-align: center; margin-top: 20px; margin-bottom: 30px; border: 1px solid #ccc; padding: 10px;">
+    
+<form action="" method="post"> {% csrf_token %}
+    {% for campo in formulario %}
+        <p>{{campo.label_tag}}</p>
+        <p>{{campo}}</p>
+        {% for error in campo.errors %}
+            <p id="error">{{error}}</p>
+        {% endfor %}
+    {% endfor %}
+    <p><input type="submit" value="Registro"></p>
+</form>
+
+</div>
+    
+{% endblock contenido %}
+
