@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block titulo %}LCDUNI: 500{% endblock titulo %}
+
+{% block cabecera %} Error 500 {% endblock cabecera %}
+
+{% block contenido %}
+
+<div class="error-404">
+    <img id="404" src='{% static "img/500.jpg" %}' alt='Página no encontrada'>
+</div>
+
+{% endblock contenido %}

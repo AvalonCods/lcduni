@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %} LCDUNI: Productos de Hardware {% endblock titulo %}
+
+{% block cabecera %} <img src='{% static "img/hw.png" %}' alt='Tienda Hardware' class='icono'> {% endblock cabecera %}
+
+{% block contenido %}
+<p><strong>  Tienda - Hardware</strong></p>
+<ul>
+    {% for producto in productos %}
+    <li class="producto">
+        <div class="descripcion">
+            <strong>{{ producto.nombre }}</strong><br>
+            Marca: {{ producto.marca }}<br>
+            Descripción: {{ producto.descripcion }}<br>
+            
+            <strong><p> ${{ producto.precio }}</p></strong>
+         
+        </div>
+        <div class="thumb">
+            {% if producto.foto %}
+                <img src="{{ producto.foto.url }}" alt="{{ producto.nombre }}">
+            {% endif %}
+        </div>
+    </li>
+    
+    {% empty %}
+        <p>No hay productos de software disponibles en la tienda.</p>
+    {% endfor %}
+</ul>
+{% endblock contenido %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %} LCDUNI: Ingreso de usuario {% endblock titulo %}
+
+{% block cabecera %} <img src='{% static "img/mb.png" %}' alt='Ingresar usuario' class='icono'>{% endblock cabecera %}
+
+{% block contenido %}
+
+<div style="text-align: center; margin-top: 20px; margin-bottom: 30px; border: 1px solid #ccc; padding: 10px;">
+    
+
+  <div class="cont">
+      <form method="post" action="">
+        {% csrf_token %}
+        {% for campo in formulario %}
+          <p>{{campo.label_tag}}</p>
+          <p>{{campo}}</p>
+        {% endfor %}
+        <p><input type="submit" value="Ingresar"></p>
+      </form>
+  </div>
+  
+</div>
+{% endblock contenido %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %} LCDUNI: Catálogo OnLine {% endblock titulo %}
+
+{% block cabecera %}
+    <img src='{% static "img/tienda.png" %}' alt='tienda' class='icono'>
+{% endblock cabecera %}
+
+{% block contenido %}
+    <p><strong>Catálogo</strong></p>
+
+    <div class="ordenar text-right">
+        <form method="get" action="{% url 'tienda' %}">
+            <label for="orden">Ordenar por:</label>
+            <select name="orden" id="orden">
+                <option value="codigo">Código</option>
+                <option value="marca">Marca</option>
+            </select>
+
+            <label for="tipo">Filtrar por tipo:</label>
+            <select name="tipo" id="tipo" onchange="this.form.submit()">
+                <option value="" {% if not tipo_selected %}selected{% endif %}>Todos</option>
+                {% for tipo_value, tipo_display in tipos %}
+                    <option value="{{ tipo_value }}" {% if tipo_value == tipo_selected %}selected{% endif %}>{{ tipo_display }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="marca">Filtrar por marca:</label>
+            <select name="marca" id="marca" onchange="this.form.submit()">
+                <option value="" {% if not marca_selected %}selected{% endif %}>Todas</option>
+                {% for marca in marcas %}
+                    <option value="{{ marca.id }}" {% if marca.id == marca_selected %}selected{% endif %}>{{ marca.nombre }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            {% for remoto in remotos %}
+                <div class="col-lg-2 col-md-2 col-sm-3 col-4">
+                    <div class="remoto">
+                        <div class="descripcion">
+                            <strong>{{ remoto.codigo }}</strong>
+                            {{ remoto.marca }}<br>
+                            {{ remoto.get_tipo_display }}<br>
+                        </div>
+                        <div class="thumb">
+                            {% if remoto.foto %}
+                                <a href="{{ remoto.foto.url }}" target="_blank">
+                                    <img src="{{ remoto.foto.url }}" alt="{{ remoto.codigo }}" class="thumb">
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No hay productos disponibles en la tienda.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if remotos.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ remotos.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current-page">
+                Página {{ remotos.number }} de {{ remotos.paginator.num_pages }}.
+            </span>
+
+            {% if remotos.has_next %}
+                <a href="?page={{ remotos.next_page_number }}">next</a>
+                <a href="?page={{ remotos.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endblock contenido %}
